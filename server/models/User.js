@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }, // Store hashed password
   createdAt: { type: Date, default: Date.now },
-  fullName:{type:String,required:true},
-  slug:{type:String,required:true},
+  fullName:{type:String},
+  slug:{type:String},
   linkedin: {type:String},
   twitter :{type:String},
   bio:{type:String},
