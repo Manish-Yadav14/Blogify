@@ -8,6 +8,7 @@ const blogs= require('./routes/blogs')
 
 app.use(express.json());
 app.use(cors());
+app.options('*', cors()); // Enable preflight for all routes
 app.use('/auth',auth);
 app.use('/blogs',blogs);
 
