@@ -7,7 +7,7 @@ const updateBlog = async(req,res)=>{
         if(existingUser){
             const blog = existingUser.blogs.find(blog =>blog.blogId === blogId);
             if(blog){
-                blog.title = title;
+                blog.title = title.split('\n')[0];
                 blog.content = content; 
                 blog.updatedAt  = new Date();
                 await existingUser.save();

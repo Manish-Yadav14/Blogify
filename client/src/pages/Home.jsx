@@ -11,6 +11,27 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import Profile from "../components/Profile";
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, false] }], // Headings (H1, H2, H3)
+    ["bold", "italic", "underline", "strike"], // Basic formatting
+    [{ list: "ordered" }, { list: "bullet" }], // Lists
+    [{ script: "sub" }, { script: "super" }], // Subscript / Superscript
+    [{ indent: "-1" }, { indent: "+1" }], // Indentation
+    [{ direction: "rtl" }], // Text direction (RTL)
+    [{ size: ["small", false, "large", "huge"] }], // Font size
+    [{ color: [] }, { background: [] }], // Text color & background
+    [{ font: [] }], // Font family
+    [{ align: [] }], // Alignments (left, center, right, justify)
+    ["blockquote", "code-block"], // Blockquote & Code block
+    ["link", "image", "video"], // Media tools
+    ["clean"], // Remove formatting
+  ],
+};
+
 function Home() {
   const [blogs, setBlogs] = useState({});
   const [activeBlogId, setActiveBlogId] = useState(null);
@@ -193,12 +214,26 @@ function Home() {
       ) : (
         <div className="w-4/5 h-[100vh] flex flex-col">
           <div className="h-[50px] border border-b-black flex justify-end">
-            <button className="bg-blue-600 text-white p-1 m-2 mr-6 rounded-md">
-              Publish
+            <button className="text-black font-mono p-1 m-2 mr-6 rounded-md">
+              Blogify
+              {/* TODO: Publish */}
             </button>
           </div>
 
-          <Editor
+
+          <div className="h-[100vh] ">
+            <ReactQuill 
+              style={{height:"700px"}}
+              theme="snow"
+              modules={modules}
+              value={blogs[activeBlogId]?.content} 
+              onChange={handleEditorChange}
+            />
+          </div>
+
+          
+
+          {/* <Editor
             value={blogs[activeBlogId]?.content} // Controlled value to update the editor
             onEditorChange={handleEditorChange} // Handle content change
             apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
@@ -252,11 +287,11 @@ function Home() {
               tinycomments_mode: "embedded",
               tinycomments_author: "Author name",
             }}
-          />
+          /> */}
         </div>
       )}
     </div>
-  );
+  )
 }
 
 export default Home;
